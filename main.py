@@ -64,12 +64,13 @@ def main():
         elif current_state == "PLAYING":
             # 게임 진행 중일 때는 손가락 좌표를 shape_recognizer에 넘겨 궤적을 저장하고 분석합니다.
             #left_shape, right_shape = shape_recognizer.update_and_recognize(left_finger, right_finger)
-            
             # 인식된 도형 결과를 game_manager에 넘겨 이번 라운드의 목표와 일치하는지 평가합니다.
             # 성공 시 횟수를 증가시키고, 3번 연속 성공 시 다음 라운드로 자동으로 넘깁니다.
             #game_manager.evaluate_shapes(left_shape, right_shape)
-            
             game_manager.process_play_state(left_finger, right_finger, shape_recognizer)
+            
+        elif current_state == "ROUND_CLEAR":
+            game_manager.process_transition_state()
 
         # [STEP 3] UI 렌더링 (화면에 그리기)
         # 처리된 모든 정보(게임 상태, 손가락 위치, 현재 그려진 궤적 등)를 ui_renderer에 넘겨 화면을 그립니다.
