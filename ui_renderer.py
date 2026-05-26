@@ -93,7 +93,7 @@ class UIRenderer:
 
     def _draw_waiting_screen(self, frame):
         self._draw_centered_text(frame, "SplitBrain Challenge", 150, self.font, 2, self.color_yellow, 4)
-        self._draw_centered_text(frame, "Hover your fingers on START to play", 220, self.font, 1, self.color_white, 2)
+        self._draw_centered_text(frame, "Hover your fingers on START to play for 3 sec!", 220, self.font, 1, self.color_white, 2)
         
         box_w, box_h = 200, 120
         box_x = 540 

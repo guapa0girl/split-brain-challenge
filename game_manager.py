@@ -9,7 +9,7 @@ class GameManager:
         self.state = "WAITING"
         self.current_round = 1
         
-        # [변경됨] 양손의 성공 횟수를 독립적으로 관리합니다.
+        # 양손의 성공 횟수를 독립적으로 관리합니다.
         self.success_count = {"left": 0, "right": 0}
         
         # 라운드 전환 효과를 보여줄 프레임 카운터
@@ -93,7 +93,7 @@ class GameManager:
                 print(f"🎉 {self.current_round}라운드 클리어!")
 
     def process_transition_state(self):
-        """라운드 클리어 이펙트를 일정 시간 띄워준 뒤 다음 라운드로 넘깁니다."""
+        # 라운드 클리어 이펙트를 일정 시간 띄워준 뒤 다음 라운드로 넘깁니다.
         self.transition_frames += 1
         # 약 2.5초(75프레임) 대기 후 다음 라운드로 이동
         if self.transition_frames > 75:
