@@ -1,12 +1,12 @@
 """
 파일명: main.py
-설명: 'SplitBrain Challenge' 프로젝트의 메인 진입점(Entry Point)입니다.
+설명: 'SplitBrain Challenge' 프로젝트의 메인 진입점(Entry Point)으로
 웹캠으로부터 실시간으로 프레임을 읽어오고, 각 모듈(손 추적, 도형 인식, 게임 로직, UI 렌더링)을 
 조립(Composition)하여 전체 게임 루프를 제어하는 컨트롤러 역할을 수행합니다.
 """
 
 # 각 기능별로 분리된 모듈들을 불러옵니다.
-import cv2
+import cv2 as cv
 from hand_tracker import HandTracker
 from shape_recognizer import ShapeRecognizer
 from game_manager import GameManager
@@ -14,11 +14,11 @@ from ui_renderer import UIRenderer
 
 def main():
     # 1. 웹캠 캡처 객체 초기화 (0번은 기본 내장 카메라를 의미합니다)
-    cap = cv2.VideoCapture(0)
+    cap = cv.VideoCapture(0)
     
     # 웹캠의 해상도를 넓게 설정합니다 (1280x720)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+    cap.set(cv.CAP_PROP_FRAME_WIDTH, 1280)
+    cap.set(cv.CAP_PROP_FRAME_HEIGHT, 720)
 
     # 2. 객체 지향 프로그래밍(OOP)의 '합성(Composition)' 원칙을 적용하여 객체들을 인스턴스화합니다.
     # 각 객체는 자신의 명확한 역할만 수행하며, main.py는 이들을 연결해줍니다.
@@ -40,7 +40,7 @@ def main():
             break
 
         # 4. 거울 모드 적용 (직관적인 드로잉을 위해 화면을 좌우 반전시킵니다)
-        frame = cv2.flip(frame, 1)
+        frame = cv.flip(frame, 1)
 
         # -------------------------------------------------------------
         # 아래는 앞으로 모듈들을 구현한 뒤 주석을 해제하여 작동시킬 핵심 로직입니다.
@@ -86,19 +86,19 @@ def main():
         
 
        # 5. 안내 텍스트
-        cv2.putText(frame, "Press 'ESC' to Quit", (50, 650), 
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
+        cv.putText(frame, "Press 'ESC' to Quit", (50, 650), 
+                    cv.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
 
-        cv2.imshow("SplitBrain Challenge", frame)
+        cv.imshow("SplitBrain Challenge", frame)
 
         # 6. 종료 아스키 코드 27번(ESC)을 감지하도록 변경
-        if cv2.waitKey(1) & 0xFF == 27:
+        if cv.waitKey(1) & 0xFF == 27:
             print("사용자가 게임을 종료했습니다.")
             break
 
     # 7. 자원 해제 (루프 종료 후 안전하게 카메라와 창을 닫아줍니다)
     cap.release()
-    cv2.destroyAllWindows()
+    cv.destroyAllWindows()
 
 # 이 스크립트가 직접 실행될 때만 main() 함수를 호출하도록 하는 파이썬의 표준 관례입니다.
 if __name__ == "__main__":

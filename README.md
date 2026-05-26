@@ -31,3 +31,12 @@
   - 좌우 상단에 이번 라운드에서 그려야 할 선/도형 가이드 텍스트 표시.
   - 손가락 이동 경로에 따라 실시간으로 화면에 선이 그려지는 시각 효과 처리.
   - 인터페이스에 관련된 모든 코드를 이 파일에 모아두면, 메인 로직이 지저분해지는 것을 방지할 수 있습니다.
+
+## 📚 References & Open Source Acknowledgements
+
+1. **Google MediaPipe Hands**
+   - 역할: 실시간 양손 관절(Landmark) 검출 및 추적
+   - 참고: [MediaPipe Hand Landmarker Documentation](https://developers.google.com/mediapipe/solutions/vision/hand_landmarker)
+2. **OpenCV (Open Source Computer Vision Library)**
+   - 역할: 웹캠 프레임 처리, UI 렌더링, 궤적 다각형 근사화 알고리즘
+   - 참고 API: `cv2.convexHull` (손떨림 노이즈 보정을 위한 볼록 선체 알고리즘), `cv2.approxPolyDP` (Douglas-Peucker 알고리즘 기반 다각형 꼭짓점 추출)

@@ -1,12 +1,12 @@
 """
 파일명: hand_tracker.py
-설명: MediaPipe Hands API를 캡슐화(Encapsulation)하여 손가락 좌표 추적을 전담하는 모듈입니다.
+설명: MediaPipe Hands API를 캡슐화(Encapsulation)하여 손가락 좌표 추적을 전담하는 모듈로
 복잡한 MediaPipe의 내부 동작이나 랜드마크 추출 로직을 이 클래스 내부로 숨기고, 
 외부(main.py)에는 오직 '양손 검지손가락의 (x, y) 픽셀 좌표'라는 정제된 결과만 반환합니다.
 이를 통해 객체 간의 결합도를 낮추고 유지보수성을 높입니다.
 """
 
-import cv2
+import cv2 as cv
 import mediapipe as mp
 
 class HandTracker:
@@ -44,7 +44,7 @@ class HandTracker:
         """
         
         # MediaPipe는 RGB 포맷의 이미지를 사용하므로, OpenCV의 기본 포맷인 BGR을 RGB로 변환합니다.
-        img_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        img_rgb = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
         
         # 변환된 이미지를 모델에 통과시켜 손의 위치와 랜드마크를 처리(process)합니다.
         results = self.hands.process(img_rgb)
@@ -86,7 +86,7 @@ class HandTracker:
                 if draw:
                     self.mp_draw.draw_landmarks(frame, hand_landmarks, self.mp_hands.HAND_CONNECTIONS)
                     # 검지손가락 끝부분에만 시각적으로 눈에 띄도록 파란색 원을 추가로 그립니다.
-                    cv2.circle(frame, (cx, cy), 15, (255, 0, 0), cv2.FILLED)
+                    cv.circle(frame, (cx, cy), 15, (255, 0, 0), cv.FILLED)
 
         # 최종적으로 추출된 양손 검지손가락의 픽셀 좌표를 반환합니다. 
         # 만약 한쪽 손만 화면에 있다면 다른 쪽은 None이 반환됩니다.
