@@ -148,7 +148,7 @@ class UIRenderer:
         self._draw_centered_text(frame, "Get ready for the next stage...", 450, self.font, 1, self.color_white, 2)
 
     def _draw_cleared_screen(self, frame):
-        self._draw_centered_text(frame, "🎉 ALL MISSIONS CLEARED! 🎉", 350, self.font, 2.5, self.color_green, 6)
+        self._draw_centered_text(frame, "ALL MISSIONS CLEARED!", 350, self.font, 3.0, self.color_green, 6)
         self._draw_centered_text(frame, "You have a great Dual-Brain!", 450, self.font, 1.5, self.color_white, 3)
 
     def _draw_trajectories(self, frame, trajectories):

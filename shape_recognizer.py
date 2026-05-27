@@ -28,8 +28,8 @@ class ShapeRecognizer:
         # 궤적이 앵커로 돌아왔을 때 한 번 호출되어 도형을 채점
         points = self.trajectories[hand]
         
-        # 오작동 방지: 누적된 좌표(점)가 25개 미만이면 무시
-        if len(points) < 25: 
+        # 오작동 방지: 누적된 좌표(점)가 20개 미만이면 무시
+        if len(points) < 20: 
             return "Fail"
 
         x_coords = [p[0] for p in points]
