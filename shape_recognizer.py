@@ -38,10 +38,10 @@ class ShapeRecognizer:
         dy = max(y_coords) - min(y_coords)
 
         # [1라운드: 직선 미션] 좌우 흔들림(dy) 및 상하 흔들림(dx) 비율을 계산해 꼼수 선 긋기 차단
-        if target_shape == "Horizontal":
+        if target_shape == "Horizontal": 
             return "Horizontal" if dx > 150 and dy < (dx * 0.5) else "Fail"
             
-        if target_shape == "Vertical":
+        if target_shape == "Vertical": 
             return "Vertical" if dy > 150 and dx < (dy * 0.5) else "Fail"
 
         # [2,3라운드: 다각형 미션] OpenCV 호환성을 위해 32비트 정수형 넘파이 배열로 변환
