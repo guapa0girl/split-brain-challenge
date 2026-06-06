@@ -38,11 +38,11 @@ python main.py
 
 ### 2. 라운드별 게임 실행 화면
 
-- 1 ROUND
+- **1 ROUND**
 
-- 2 ROUND
+- **2 ROUND**
 
-- 3 ROUND
+- **3 ROUND**
 
 ### 3. 종료 화면
 
