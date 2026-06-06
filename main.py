@@ -45,19 +45,31 @@ def main():
         # [STEP 2] 게임 상태 업데이트 및 로직 처리
         current_state = game_manager.get_state()
 
+        # 대기 상태(WAITING)와 그 외 상태(게임 진행/클리어 등)를 분리하여 버튼을 항시 감지하도록 변경
         if current_state == "WAITING":
             # 대기 상태: START 버튼 영역에 손가락이 1초 이상 머무는지 체크
             is_start_triggered = game_manager.check_start_button(left_finger, right_finger)
             if is_start_triggered:
                 game_manager.start_game() 
-
-        elif current_state == "PLAYING":
-            # 게임 진행 중: 손가락 좌표를 분석하고, 3회 성공 시 다음 라운드로 넘기기
-            game_manager.process_play_state(left_finger, right_finger, shape_recognizer)
+        else:
+            # 게임이 시작된 이후에는 상태에 상관없이 RESTART 버튼을 항시 감지
+            game_manager.check_restart_button(left_finger, right_finger, shape_recognizer)
             
-        elif current_state == "ROUND_CLEAR":
-            # 라운드 전환 중: 축하 메시지를 약 2.5초(75프레임)간 띄운 후 다음 라운드로 이동
-            game_manager.process_transition_state()
+            # 우측 하단의 QUIT(종료) 버튼 감지 시 안전하게 루프를 탈출하여 게임 종료
+            if game_manager.check_quit_button(left_finger, right_finger):
+                print("사용자가 화면의 QUIT 버튼을 눌러 게임을 종료합니다.")
+                break
+            
+            # RESTART 버튼 등으로 인해 상태가 바뀌었을 수 있으므로 최신 상태를 다시 부르기
+            current_state = game_manager.get_state()
+
+            if current_state == "PLAYING":
+                # 게임 진행 중: 손가락 좌표를 분석하고, 3회 성공 시 다음 라운드로 넘기기
+                game_manager.process_play_state(left_finger, right_finger, shape_recognizer)
+                
+            elif current_state == "ROUND_CLEAR":
+                # 라운드 전환 중: 축하 메시지를 약 2.5초(75프레임)간 띄운 후 다음 라운드로 이동
+                game_manager.process_transition_state()
 
         # [STEP 3] UI 렌더링 (화면에 그리기)
         # 처리된 모든 정보(게임 상태, 궤적 등)를 넘겨 화면에 그래픽 요소들을 덧그리기
