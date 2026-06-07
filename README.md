@@ -23,12 +23,6 @@ MediaPipe의 실시간 손가락 추적 기술과 OpenCV의 수학적 도형 판
   <img src="./assets/demo.gif" width="600">
 </div>
 
-## 🎮 데모 및 실행 화면 (Demo & Screenshots)
-
-<div align="center">
-  <img src="./assets/demo.gif" width="600">
-</div>
-
 ### 1. 플레이 데모 영상 (GIF)
 
 **설명:** 양손을 독립적으로 사용하여 서로 다른 도형을 동시에 그리는 모습입니다. 2개의 시작점에 손을 올려 시작하며, 도형 완성 시 중앙 기준 좌우로 미니 도형이 박제됩니다.
