@@ -15,11 +15,13 @@ MediaPipe의 실시간 손가락 추적 기술과 OpenCV의 수학적 도형 판
 - 타이틀과 ROUND 문구는 **화면 중앙 상단에 최적화된 위치로 재배치**하였으며, 게임 요소들은 좌우 대칭 레이아웃으로 균형 잡힌 UI를 구성했습니다.
 - 성공한 도형은 1.3배 크기 텍스트 아래에 **3개 단위로 줄바꿈되어 도장처럼 박제**됩니다.
 
-- **🤝 동시 시작 시스템(Dual-Start):** 게임 시작 시 양손을 각각의 시작점(Anchor) 원에 동시에 올려두어야 게임이 시작되도록 하여 멀티태스킹 게임의 정체성을 강화했습니다.
+- **동시 시작 시스템(Dual-Start):** 게임 시작 시 양손을 각각의 시작점(Anchor) 원에 동시에 올려두어야 게임이 시작되도록 하여 멀티태스킹 게임의 정체성을 강화했습니다.
 
 ## 🎮 데모 및 실행 화면 (Demo & Screenshots)
 
-![AR Demo Result](./assets/demo.gif)
+<div align="center">
+  <img src="./assets/demo.gif" width="600">
+</div>
 
 ### 1. 플레이 데모 영상 (GIF)
 
@@ -27,16 +29,12 @@ MediaPipe의 실시간 손가락 추적 기술과 OpenCV의 수학적 도형 판
 
 ### 2. 게임 상태별 스크린샷
 
-- **대기 화면 (WAITING):** 중앙 위쪽의 타이틀과 안내 문구를 확인하고, 양손을 각 앵커에 올려 1초간 게이지를 채우면 시작됩니다.
-  ![대기 화면](./assets/title.png)
-- **라운드 진행 중 (PLAYING):** 중앙 정렬된 타이머와 좌우로 대칭 배치된 미션 도형을 따라 그립니다. 좌측 하단의 HOME 버튼으로 언제든 대기 화면으로 복귀 가능하며 QUIT 버튼으로 즉시 종료 가능합니다.
-  ![1라운드 진행](./assets/dot_line1.png) ![2라운드 진행](./assets/dot_line2.png) ![3라운드 진행](./assets/dot_line3.png)
-  ![home button](./assets/home_button.png) ![quit button](./assets/quit_button.png)
-- **라운드 클리어 (ROUND CLEAR):** 양손 모두 3회 성공 시 속도감 있는 전환 이펙트와 함께 다음 라운드로 이동합니다.
-  ![1round](./assets/next_round1.png) ![2round](./assets/next_round2.png)
-- **최종 클리어 (ALL CLEARED):** 3라운드를 모두 통과하면 최고 기록(BEST TIME)이 표시되며 축하 메시지가 나타납니다.
-  ![clear](./assets/clear.png)
-  ![home 가기](./assets/home_button2.png)
+| 상태               | 설명                                                                                                                                                                | 이미지                                                                                                                                                                                                                                            |
+| :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **대기 화면**      | 중앙 위쪽의 타이틀과 안내 문구를 확인하고, 양손을 각 앵커에 올려 1초간 게이지를 채우면 시작됩니다.                                                                  | <img src="./assets/title.png" width="300">                                                                                                                                                                                                        |
+| **라운드 진행 중** | 중앙 정렬된 타이머와 좌우로 대칭 배치된 미션 도형을 따라 그립니다. 좌측 하단의 HOME 버튼으로 언제든 대기 화면으로 복귀 가능하며 QUIT 버튼으로 즉시 종료 가능합니다. | <img src="./assets/dot_line1.png" width="200"> <img src="./assets/dot_line2.png" width="200"> <img src="./assets/dot_line3.png" width="200"><br><img src="./assets/home_button.png" width="200"> <img src="./assets/quit_button.png" width="200"> |
+| **라운드 클리어**  | 양손 모두 3회 성공 시 속도감 있는 전환 이펙트와 함께 다음 라운드로 이동합니다.                                                                                      | <img src="./assets/next_round1.png" width="300"> <img src="./assets/next_round2.png" width="300">                                                                                                                                                 |
+| **최종 클리어**    | 3라운드를 모두 통과하면 최고 기록(BEST TIME)이 표시되며 축하 메시지가 나타납니다.                                                                                   | <img src="./assets/clear.png" width="300"> <img src="./assets/home_button2.png" width="300">                                                                                                                                                      |
 
 ## 🛠 필수 라이브러리 및 설치 방법 (Prerequisites)
 
