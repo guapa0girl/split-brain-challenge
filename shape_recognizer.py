@@ -54,15 +54,27 @@ class ShapeRecognizer:
         if cv.contourArea(hull) < 5000: 
             return "Fail"
 
-        # approxPolyDP를 사용해 도형의 둘레 길이 대비 3%의 오차 범위를 허용하여 
-        # 자잘한 꼭짓점들을 단순화된 다각형(삼각형, 사각형 등)으로 근사화시킵니다.
+        # approxPolyDP를 사용해 도형의 둘레 길이 대비 오차 범위를 허용하여 다각형으로 근사화
         perimeter = cv.arcLength(hull, True)
-        approx = cv.approxPolyDP(hull, 0.03 * perimeter, True)
+        
+        # 삼각형은 오차 범위를 넓혀(0.05) 더 잘 인식되게 하고, 나머지는 기본(0.03) 적용
+        epsilon_val = 0.05 if target_shape == "Triangle" else 0.03
+        approx = cv.approxPolyDP(hull, epsilon_val * perimeter, True)
         vertices = len(approx)
 
         # 최종 꼭짓점 개수로 도형을 확정
-        if vertices == 3: return "Triangle"
-        elif vertices == 4: return "Square"
-        elif vertices == 5: return "Pentagon"
+        if target_shape == "Triangle":
+            return "Triangle" if vertices == 3 else "Fail"
+            
+        elif target_shape == "Square":
+            # 사각형은 꼭짓점 4개 확인 + 가로세로 비율(aspect ratio) 0.7~1.3 체크로 깐깐하게 변경
+            if vertices == 4:
+                x, y, w, h = cv.boundingRect(approx)
+                aspect_ratio = float(w) / h
+                return "Square" if 0.7 <= aspect_ratio <= 1.3 else "Fail"
+            return "Fail"
+            
+        elif target_shape == "Pentagon":
+            return "Pentagon" if vertices == 5 else "Fail"
 
         return "Fail"

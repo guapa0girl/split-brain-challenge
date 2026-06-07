@@ -62,23 +62,26 @@ class GameManager:
         return self.current_round, {"left": "None", "right": "None"}
 
     def check_start_button(self, left_finger, right_finger):
-        # 손가락이 START 버튼 위에 올라가 있는지 확인하여 게이지 채우기
-        fingers = [f for f in (left_finger, right_finger) if f is not None]
-        is_hovering = False
+        # 두 손가락이 모두 각각의 START 앵커 원 안에 있는지 확인
+        if left_finger is None or right_finger is None:
+            self.hover_frames = max(0, self.hover_frames - 2)
+            return False
+            
+        lax, lay, lar = self.anchors["left"]
+        rax, ray, rar = self.anchors["right"]
         
-        for fx, fy in fingers:
-            if (self.start_button_box[0] < fx < self.start_button_box[2] and 
-                self.start_button_box[1] < fy < self.start_button_box[3]):
-                is_hovering = True
-                break 
+        # 유클리드 거리로 양손이 모두 각자의 앵커 영역 안에 들어왔는지 계산
+        left_in = ((left_finger[0] - lax)**2 + (left_finger[1] - lay)**2)**0.5 < lar
+        right_in = ((right_finger[0] - rax)**2 + (right_finger[1] - ray)**2)**0.5 < rar
 
-        if is_hovering:
+        # 두 손가락 모두 앵커 안에 있을 때만 게이지 증가
+        if left_in and right_in:
             self.hover_frames += 1
             if self.hover_frames >= 30: # 약 1초(30프레임) 유지 시 게임 시작
                 self.hover_frames = 0 
                 return True
         else:
-            self.hover_frames = max(0, self.hover_frames - 2) # 손을 떼면 게이지 감소
+            self.hover_frames = max(0, self.hover_frames - 2) # 하나라도 떼면 게이지 감소
             
         return False
 
@@ -171,18 +174,19 @@ class GameManager:
 
     # 타이머 및 RESTART 관련 메서드
     def reset_game(self, shape_recognizer):
-        # 언제든지 1라운드부터 진행 상황 및 타이머를 리셋하고 다시 시작
-        self.state = "PLAYING"
+        # HOME 기능
+        self.state = "WAITING"
         self.current_round = 1
         self.success_count = {"left": 0, "right": 0}
-        self.success_shapes = {"left": [], "right": []} # [추가됨] 리셋 시 궤적 초기화
+        self.success_shapes = {"left": [], "right": []} 
         self.is_drawing = {"left": False, "right": False}
         self.transition_frames = 0
+        self.hover_frames = 0 # START 버튼 게이지 초기화
         shape_recognizer.clear_trajectory("left")
         shape_recognizer.clear_trajectory("right")
-        self.start_time = time.time() # 타이머 초기화
+        self.start_time = None # 타이머 초기화 (시작 전이므로 None)
         self.end_time = None
-        print("🔄 RESTART! 1라운드부터 다시 시작합니다.")
+        print("🏠 HOME! 처음 대기 화면으로 돌아갑니다.")
 
     def check_restart_button(self, left_finger, right_finger, shape_recognizer):
         # 좌측 하단의 RESTART 버튼 영역 손가락 체크
