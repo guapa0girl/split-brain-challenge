@@ -176,8 +176,8 @@ class UIRenderer:
         
         # Left/Right 문구 위치 고정 (중앙 기준 좌우 배치)
         left_count, right_count = game_manager.success_count['left'], game_manager.success_count['right']
-        self._draw_text_with_shadow(frame, f"Left: {missions['left']} ({left_count}/3)", 50, 110, self.font, 1.3, self.color_red, 3)
-        self._draw_text_with_shadow(frame, f"Right: {missions['right']} ({right_count}/3)", 850, 110, self.font, 1.3, self.color_blue, 3)
+        self._draw_text_with_shadow(frame, f"Left: {missions['left']} ({left_count}/3)", 50, 110, self.font, 1, self.color_red, 3)
+        self._draw_text_with_shadow(frame, f"Right: {missions['right']} ({right_count}/3)", 850, 110, self.font, 1, self.color_blue, 3)
 
         # 3개 단위 줄바꿈 박제
         for i, (cnt, hand) in enumerate([(left_count, 'left'), (right_count, 'right')]):
